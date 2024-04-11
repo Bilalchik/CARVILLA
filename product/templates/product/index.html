@@ -301,7 +301,7 @@
 								</div>
 								<div class="featured-cars-txt">
 									<h2>
-										<a href="#">
+										<a href="{% url 'car_detail' car.slug %}">
 											{% for car_brand in car.brands.all %}
 												{{ car_brand }}
 											{% endfor %}

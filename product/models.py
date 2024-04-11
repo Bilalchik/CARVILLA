@@ -41,6 +41,7 @@ class Car(models.Model):
     images = models.ManyToManyField(Image)
     brands = models.ManyToManyField(Brand)
     car_model = models.CharField(max_length=123)
+    slug = models.SlugField()
     year_of_release = models.DateField()
     engine_volume = models.FloatField()
     engine_type = models.PositiveSmallIntegerField(
@@ -104,4 +105,20 @@ class Car(models.Model):
     def __str__(self):
         return f"{self.user} | {self.car_model}"
 
+
+class Basket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(auto_now_add=True)
+    status = models.PositiveSmallIntegerField(
+        choices=(
+            (1, 'В обработке'),
+            (2, 'Выполнен'),
+            (3, 'Отклонен'),
+        ),
+        default=1
+    )
+
+    def __str__(self):
+        return f"{self.user} --> {self.car}"
 
