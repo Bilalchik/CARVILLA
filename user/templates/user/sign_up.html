@@ -1,14 +1,85 @@
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post" action=".">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit">
-    </form>
-</body>
+<html class="no-js" lang="en">
+{% block content %}
+	<body>
+	 <div class="top-area">
+        <div class="header-area">
+            <!-- Start Navigation -->
+            <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+                <div class="container">
+
+                    <!-- Start Header Navigation -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'index' %}" style="color: black;">carvilla<span></span></a>
+
+                    </div><!--/.navbar-header-->
+                    <!-- End Header Navigation -->
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class=" scroll active"><a href="#home" style="color: #4e4ffa;">home</a></li>
+                            <li class="scroll"><a href="#service" style="color: #4e4ffa;">service</a></li>
+                            <li class="scroll"><a href="#featured-cars" style="color: #4e4ffa;">featured cars</a></li>
+                            <li class="scroll"><a href="#new-cars" style="color: #4e4ffa;">new cars</a></li>
+                            <li class="scroll"><a href="#brand" style="color: #4e4ffa;">brands</a></li>
+                            <li class="scroll"><a href="#contact" style="color: #4e4ffa;">contact</a></li>
+                            <li class="scroll"> <a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Auth">
+                                    {% if request.user.is_authenticated %}
+                                        {{ request.user.full_name }}
+                                    {% else %}
+                                        Авторизация
+                                    {% endif %}
+                                </button>
+                                </a>
+                            </li>
+                        </ul><!--/.nav -->
+                    </div><!-- /.navbar-collapse -->
+                </div><!--/.container-->
+            </nav><!--/nav-->
+            <!-- End Navigation -->
+        </div><!--/.header-area-->
+        <div class="clearfix"></div>
+<br><br><br><br><br>
+    <center>
+        <div class="container" style="width: 300px;">
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <input type="submit" value="Отправить">
+            </form>
+        </div>
+    </center>
+
+<br><br><br><br><br>
+<!-- Modal -->
+<!--<div class="modal fade" id="CarUpdate" tabindex="-1" role="dialog" aria-labelledby="CarUpdateLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="CarUpdateLabel">Modal title</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        ...-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+    </body>
+{% endblock %}
 </html>

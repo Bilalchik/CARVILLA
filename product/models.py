@@ -103,7 +103,7 @@ class Car(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user} | {self.car_model}"
+        return f"{self.car_model}"
 
 
 class Basket(models.Model):

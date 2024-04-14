@@ -61,7 +61,7 @@
 								<div class="row">
 									<div class="col-md-7 col-sm-12">
 										<div class="new-cars-img">
-											<img src="{{ car.preview.url }}" alt="img" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+											<img src="{{ car.preview.url }}" alt="img" style="max-height: 500px; object-fit: contain;"/>
 										</div><!--/.new-cars-img-->
 									</div>
 									<div class="col-md-5 col-sm-12">
@@ -79,13 +79,10 @@
 											<p>
 												{{ car.description }}
 											</p>
-											<p class="new-cars-para2">
-												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												Купить
-											</button>
-
+                                            <form method="post" action=".">
+                                                {% csrf_token %}
+											    <input type="submit" class="form-control" placeholder="Поиск машины..." name="buy">
+                                            </form>
 										</div><!--/.new-cars-txt-->
 									</div><!--/.col-->
 								</div><!--/.row-->
@@ -96,7 +93,7 @@
 			</div><!--/.container-->
 		</section><!--/.new-cars-->
 {% if car.user.id == request.user.id %}
-    <center><form method="post" action="." enctype="multipart/form-data">
+    <center><form method="post" action="." enctype="multipart/form-data" name="car_update">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Отправить">

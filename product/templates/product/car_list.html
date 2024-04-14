@@ -3,6 +3,13 @@
 <html class="no-js" lang="en">
 {% block content %}
 	<body>
+		<style>
+	.single-featured-cars .featured-cars-txt p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+	</style>
 	 <div class="top-area">
         <div class="header-area">
             <!-- Start Navigation -->
@@ -45,41 +52,72 @@
             </nav><!--/nav-->
             <!-- End Navigation -->
         </div><!--/.header-area-->
-        <div class="clearfix"></div>
-<br><br><br><br><br>
-    <center>
-        <div class="container" style="width: 300px;">
-            <form method="post" action=".">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br>
-                <input type="submit" value="Отправить">
-            </form>
-        </div>
-    </center>
+     </div>
+		<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<center>
+							<div class="model-search-content">
+								<div class="row">
+									<form method="get" action=".">
+										{{ filter.form.as_p }}
+										<button type="submit">Найти</button>
+									</form>
+								</div>
+							</div>
+						</center>
+					</div>
+				</div>
+			</div>
+     		<!--featured-cars start -->
+		<section id="featured-cars" class="featured-cars">
+			<div class="container">
+				<div class="section-header">
+					<p>checkout <span>the</span> featured cars</p>
+					<h2>featured cars</h2>
+				</div><!--/.section-header-->
+				<div class="featured-cars-content">
+					<div class="row">
+						{% for car in cars %}
+							<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="single-featured-cars">
+								<div class="featured-img-box">
+									<div class="featured-cars-img" style="max-width: 100%;height: auto;">
+										<img src="{{ car.preview.url }}" alt="cars" style="max-height: 200px; object-fit: contain;">
+									</div>
+									<div class="featured-model-info">
+										<p>
+											Год: {{ car.year_of_release | date:"Y" }}
+											<span class="featured-mi-span"> Пробег: {{ car.mileage }} км</span>
+											<span class="featured-hp-span">{{ car.engine_volume }}</span>
+											 {{ car.get_gearbox_display }}&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+											<span class="featured-hp-span">{{ car.get_rudder_position_display }}</span>
+										</p>
+									</div>
+								</div>
+								<div class="featured-cars-txt">
+									<h2>
+										<a href="{% url 'car_detail' car.slug %}">
+											{% for car_brand in car.brands.all %}
+												{{ car_brand }}
+											{% endfor %}
+												{{ car.car_model }}
+										</a></h2>
+									<h3>${{ car.price }}</h3>
+									<p class="truncate-text">
+										{{ car.description }}
+									</p>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div><!--/.container-->
 
-<br><br><br><br><br>
-<!-- Modal -->
-<!--<div class="modal fade" id="CarUpdate" tabindex="-1" role="dialog" aria-labelledby="CarUpdateLabel" aria-hidden="true">-->
-<!--  <div class="modal-dialog" role="document">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h5 class="modal-title" id="CarUpdateLabel">Modal title</h5>-->
-<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        ...-->
-<!--      </div>-->
-<!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
+		</section><!--/.featured-cars-->
+		<!--featured-cars end -->
     </body>
+
 {% endblock %}
 </html>
